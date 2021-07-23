@@ -33,7 +33,8 @@ const categoryReducer = (state = [], action) => {
     }
 }
 //Searched gifs reducer
-const searchReducer = (state = {}, action) => {
+
+const searchReducer = (state = [], action) => {
     switch (action.type) {
         case 'SET_SEARCH':
             return action.payload;
@@ -69,7 +70,9 @@ function* fetchCategories() {
 function* fetchSearchGifs(action) {
     try{
         const categoryResponse = yield axios.get(`/api/giphy/${action.payload}`);
-        yield put({ type: 'SET_SEARCH', payload: categoryResponse.data});
+
+        yield put({ type: 'SET_SEARCH', payload: categoryResponse.data.data});
+
     } catch (error) {
         console.log('Error searching gifs', error);
     }

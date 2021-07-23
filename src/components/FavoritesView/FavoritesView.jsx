@@ -56,7 +56,7 @@ return (
       <img src={gif.url}/>
       {/* <button onClick={fetchCategories}>fetch categories</button>  */}
         {categories.map((category) => (
-            <button key={category.id}>{category.name}</button>
+            <button onClick={addCategory} key={category.id}>{category.name}</button>
         ))}
       
       </div>

@@ -8,13 +8,13 @@ router.get('/', (req, res) => {
 
   const id = req.params.id;
   const search = req.params.search
-  const sqlText = 'SELECT * FROM "category ORDER BY "id" DESC'
+  const sqlText = 'SELECT * FROM "favorite" ORDER BY "id" DESC'
   
   pool.query(sqlText)
   .then(result => {
     res.send(result.rows);
   }).catch(error => {
-    console.log("Error getting Categories", error);
+    console.log("Error getting Favorites", error);
   })
 });
 

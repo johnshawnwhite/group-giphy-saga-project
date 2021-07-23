@@ -10,7 +10,7 @@ router.get('/:search', (req, res) => {
     const search = req.params.search;
     console.log(search);
     axios.get(
-        `http://api.giphy.com/v1/gifs/trending?api_key=${process.env.GIPHY_API_KEY}&limit=5`
+        `http://api.giphy.com/v1/gifs/search?api_key=${process.env.GIPHY_API_KEY}&q=${search}`
     )
     .then(response => {
         console.log(response.data);

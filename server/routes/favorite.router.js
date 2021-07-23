@@ -7,8 +7,7 @@ const router = express.Router();
 router.get('/', (req, res) => {
   const id = req.params.id;
   const search = req.params.search
-  const sqlText = 'SELECT * FROM "category ORDER BY "id" DESC'
-
+  const sqlText = ''
   pool.query(sqlText)
   .then(result => {
     res.send(result.rows);

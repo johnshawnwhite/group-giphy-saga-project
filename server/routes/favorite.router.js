@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
   .then(result => {
     res.send(result.rows);
   }).catch(error => {
-    console.log("Error getting Categories", error);
+    console.log("Error getting Favorites", error);
   })
 });
 

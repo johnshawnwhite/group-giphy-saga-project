@@ -1,4 +1,5 @@
 import React from 'react';
+import FavoritesView from '../FavoritesView/FavoritesView';
 import axios from 'axios';
 // import './App.css';
 import {useSelector, useDispatch} from 'react-redux';
@@ -17,7 +18,7 @@ function App(props) {
   return (
     <div>
       <h1>Giphy Search!</h1>
-      <Search />
+      <FavoritesView />
     </div>
   );
 }

@@ -62,7 +62,7 @@ function* fetchFavorites() {
 function* fetchCategories() {
     try{
         const categoryResponse = yield axios.get('/api/category');
-        yield put({ type: 'SET_CATEGORIES', payload: categoryResponse.data});
+        yield put({ type: 'SET_CATEGORY', payload: categoryResponse.data});
     } catch (error) {
         console.log('Error fetching categories', error);
     }

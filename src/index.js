@@ -61,7 +61,7 @@ function* fetchFavorites() {
 function* fetchCategories() {
     try{
         const categoryResponse = yield axios.get('/api/category');
-        yield put({ type: 'SET_CATEGORIES', payload: categoryResponse.data});
+        yield put({ type: 'SET_CATEGORY', payload: categoryResponse.data});
     } catch (error) {
         console.log('Error fetching categories', error);
     }
@@ -99,6 +99,9 @@ const storeInstance = createStore(
     //apply logger here
     applyMiddleware(sagaMiddleware, logger),
 );
+
+sagaMiddleware.run(rootSaga);
+
 ReactDOM.render(<Provider store=
     {storeInstance}>
         <App />

@@ -5,72 +5,63 @@
 //is this also POSTing to the favorite_category database?
 //id of gif and id of category to the favorite table
 
+import axios from "axios";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 
-const { put } = require("../../../server/routes/favorite.router");
+// const { put } = require("../../../server/routes/favorite.router");
 function FavoritesView() {
-// const favoriteReducer = (state = [], action => {
-//     switch (action.type) {
-//         case 'SET_FAVORITES':
-//             return action.payload;
-//         default:
-//             return state;
-//     }
-// })
 
-// const categoryReducer = (state = [], action => {
-//     switch (action.type) {
-//         case 'SET_CATEGORY':
-//             return action.payload;
-//         default:
-//             return state;
-//     }
-// })
-// //not sure if my yield put is correct
-// function* fetchFavorites() {
-//     try{
-//         const favoritesResponse = yield axios.get('/favorite');
-//         yield put({ type: 'SET_FAVORITES', payload: favoritesResponse.data});
-//     } catch (error) {
-//         console.log('Error fetching favorites', error);
-//     }
+    const dispatch = useDispatch();
+    const favoriteGifs = useSelector(store => store.favoriteReducer)
+    const categories = useSelector(store => store.categoryReducer)
+    console.log('logging categories', categories)
 
-// }
-
-// function* fetchCategories() {
-//     try{
-//         const categoryResponse = yield axios.get('/api/category');
-//         yield put({ type: 'SET_CATEGORIES', payload: categoryResponse.data});
-//     } catch (error) {
-//         console.log('Error fetching categories', error);
-//     }
-
-// }
 
 useEffect( () => {
-    fetchFavorites;
+    dispatch({type: 'FETCH_FAVORITES'})
+    dispatch({type: 'FETCH_CATEGORIES'})
+    // fetchCategories;
 }, [])
-
+//fetches favorite gifs from the DB
 const fetchFavorites = () => {
-    dispatchEvent({type: 'FETCH_FAVORITES'})
+    dispatch({type: 'FETCH_FAVORITES'})
+    console.log(favoriteGifs);
 }
 
+//need to get the categories from the db to choose from
+const fetchCategories = () => {
+    dispatch({type: 'FETCH_CATEGORIES'})
+}
 
 // hey meghan when you end up calling the put request when 
 // adding the categories use the route /api/favorite/${gifId} 
 // and also send an array with the categories ids as the body
 
-const addFavoriteCategory = () => {
-    dispatchEvent({type: 'ADD_CATEGORY', payload: })
-}
+
+//need to update category in the db
+// const addCategory = (gifId) => {
+//     axios.put(`/api/favorite/${gifId}`)
+//trying to figure out how to write the payload 
+    // dispatchEvent({type: 'ADD_CATEGORY', payload:[{category} ]})
+
 return (
     <>
-    <div>
-        <h1>Favorite Gifs</h1>    
-      <p>Results go here</p>
-      <button > + Category </button>
-    </div>
-    </>
-  );
+        <h1>Favorite Gifs</h1>   
+        <button onClick={fetchFavorites}>fetch favs</button>
+      {favoriteGifs.map((gif) => (
+
+    <div key={gif.id}>
+      <img src={gif.url}/>
+      {/* <button onClick={fetchCategories}>fetch categories</button>  */}
+        {categories.map((category) => (
+            <button key={category.id}>{category.name}</button>
+        ))}
+      
+      </div>
+
+     ))}
+     </>)
 }
   export default FavoritesView;

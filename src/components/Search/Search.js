@@ -2,6 +2,8 @@ import react from "react";
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
+import SearchItem from './SearchItem';
+
 function Search(){
 
     const[search, setSearch] = useState('');
@@ -34,8 +36,7 @@ function Search(){
        
             {searchReducer.map((search) => {
                 return (
-                    // <img src={search.url}/>
-                    <p>{search.images.original.url}</p>
+                    <SearchItem key={search.id} search={search}/>
                 );
             })}
         

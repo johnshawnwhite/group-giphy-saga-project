@@ -20,10 +20,12 @@ router.get('/', (req, res) => {
 
 // add a new favorite
 router.post('/', (req, res) => {
-  const newFavorite = req.body;
+  const favName = req.body.name;
+  const favUrl = req.body.url;
+  console.log(favName, favUrl);
   let sqlText = `INSERT INTO "favorite" ("name", url)
-                VALUES ($1, $ 2)`;
-  pool.query(sqlText, [newFavorite])
+                VALUES ($1, $2)`;
+  pool.query(sqlText, [favName, favUrl])
   .then(result => {
     res.sendStatus(200);
   }).catch(error => {

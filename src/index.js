@@ -47,7 +47,8 @@ const searchReducer = (state = [], action) => {
 function* rootSaga(){
     yield takeEvery('FETCH_FAVORITES', fetchFavorites);
     yield takeEvery('FETCH_CATEGORIES', fetchCategories);
-    yield takeEvery('FETCH_SEARCH_GIF', fetchSearchGifs)
+    yield takeEvery('FETCH_SEARCH_GIF', fetchSearchGifs);
+    yield takeEvery('POST_FAVORITE', postFavorites);
 }
 
 //GET Sagas
@@ -79,10 +80,10 @@ function* fetchSearchGifs(action) {
 }
 
 //POST Sagas
-function* postFavorites(ACTION) {
+function* postFavorites(action) {
     try{
-        yield axios.post('/api/favorite', ACTION.PAYLOAD);
-        yield put({ type: 'SET_FAVORITES', payload: favoritesResponse.data});
+        yield axios.post('/api/favorite', action.payload);
+        yield put({ type: 'FETCH_FAVORITES'});
     } catch (error) {
         console.log('Error fetching favorites', error);
     }

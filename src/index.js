@@ -33,6 +33,7 @@ const categoryReducer = (state = [], action) => {
     }
 }
 //Searched gifs reducer
+
 const searchReducer = (state = [], action) => {
     switch (action.type) {
         case 'SET_SEARCH':
@@ -69,7 +70,9 @@ function* fetchCategories() {
 function* fetchSearchGifs(action) {
     try{
         const categoryResponse = yield axios.get(`/api/giphy/${action.payload}`);
+
         yield put({ type: 'SET_SEARCH', payload: categoryResponse.data.data});
+
     } catch (error) {
         console.log('Error searching gifs', error);
     }
@@ -99,7 +102,9 @@ const storeInstance = createStore(
     //apply logger here
     applyMiddleware(sagaMiddleware, logger),
 );
+
 sagaMiddleware.run(rootSaga);
+
 ReactDOM.render(<Provider store=
     {storeInstance}>
         <App />
